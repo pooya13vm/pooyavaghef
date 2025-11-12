@@ -1,5 +1,6 @@
 import Lanyard from "./Components/Lanyard/Lanyard";
 import { HeroTextBlock } from "./Components/HeroTextBlock";
+import { StartProjectButton } from "./Components/StartProjectButton";
 
 export default function HomePage() {
   return (
@@ -18,14 +19,20 @@ export default function HomePage() {
           relative z-10 flex w-full max-w-5xl flex-col items-center gap-8
           px-6 text-center
           lg:flex-row lg:items-center lg:justify-start lg:gap-10 lg:text-left
-          pointer-events-none select-none mt-40 lg:mt-0
+           mt-40 lg:mt-0
         "
       >
         {/* اسپیس خالی کنار لنیارد توی دسکتاپ */}
         <div className="hidden lg:block w-[420px]" aria-hidden="true" />
 
-        {/* بلوک تکست با انیمیشن از راست */}
-        <HeroTextBlock />
+        <div className="flex flex-col items-center lg:items-start gap-4">
+          <HeroTextBlock />
+
+          {/* CTA باید قابل کلیک باشه، پس اینجا pointer-events-auto */}
+          <div className="">
+            <StartProjectButton />
+          </div>
+        </div>
       </div>
     </section>
   );
