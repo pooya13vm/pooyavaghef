@@ -1,4 +1,3 @@
-// app/work/WorkGrid.tsx
 "use client";
 
 import ChromaGrid, {
@@ -10,7 +9,7 @@ const workItems: ChromaItem[] = [
     image: "/work/Apex.png",
     title: "SaaS Analytics Dashboard",
     subtitle: "Next.js · Design & Frontend",
-    url: "https://example.com", // بعداً لینک واقعی
+    url: "https://example.com",
     borderColor: "#3b82f6",
     gradient: "linear-gradient(145deg,#1d4ed8,#020617)",
   },
@@ -58,14 +57,14 @@ const workItems: ChromaItem[] = [
 
 export function WorkGrid() {
   return (
-    <div className="w-full max-w-5xl mx-auto">
+    <div className="w-full max-w-5xl mx-auto h-[380px]">
       <ChromaGrid
         items={workItems}
-        className="py-6"
-        radius={260} // شعاع افکت رنگی
-        damping={0.45} // نرمی حرکت
-        fadeOut={0.6} // سرعت برگشت محو شدن
-        ease="power3.out" // همون دیفالت خود کامپوننت
+        className="py-4"
+        radius={260}
+        damping={0.45}
+        fadeOut={0.6}
+        ease="power3.out"
       />
     </div>
   );

@@ -9,7 +9,6 @@ export default function WorkPage() {
         lg:gap-10
       "
     >
-      {/* Intro بالا */}
       <header className="max-w-3xl text-center space-y-4">
         <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight text-white">
           Work

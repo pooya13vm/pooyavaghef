@@ -1,5 +1,5 @@
 import Lanyard from "./Components/Lanyard/Lanyard";
-import { HeroScrambledText } from "./TextAnimations/ScrambledText/HeroScrambledText";
+import { HeroTextBlock } from "./Components/HeroTextBlock";
 
 export default function HomePage() {
   return (
@@ -15,25 +15,17 @@ export default function HomePage() {
 
       <div
         className="
-         relative z-10 flex w-full max-w-5xl flex-col items-center gap-8
-    px-6 text-center
-    lg:flex-row lg:items-center lg:justify-start lg:gap-10 lg:text-left
-    pointer-events-none select-none mt-40 lg:mt-0
+          relative z-10 flex w-full max-w-5xl flex-col items-center gap-8
+          px-6 text-center
+          lg:flex-row lg:items-center lg:justify-start lg:gap-10 lg:text-left
+          pointer-events-none select-none mt-40 lg:mt-0
         "
       >
-        {/* اسپیسِر کنار کارت، یه کم باریک‌ترش کردیم */}
+        {/* اسپیس خالی کنار لنیارد توی دسکتاپ */}
         <div className="hidden lg:block w-[420px]" aria-hidden="true" />
 
-        {/* بلاک متن؛ margin-left رو برداشتیم که بیاد چسبیده‌تر به کارت */}
-        <div className="max-w-lg space-y-4">
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-            Pooya Vaghef
-          </h1>
-
-          <div className="text-sm text-neutral-300 leading-relaxed md:pl-1">
-            <HeroScrambledText text="Frontend & full-stack developer focused on clean, minimal interfaces with playful motion and memorable details." />
-          </div>
-        </div>
+        {/* بلوک تکست با انیمیشن از راست */}
+        <HeroTextBlock />
       </div>
     </section>
   );
