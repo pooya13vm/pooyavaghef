@@ -27,7 +27,7 @@ export function HeroTextBlock() {
   }, []);
 
   return (
-    <div ref={containerRef} className="max-w-lg space-y-4">
+    <div ref={containerRef} className="max-w-lg space-y-4 pointer-events-none">
       <h1
         className="
           text-3xl md:text-4xl font-semibold tracking-tight

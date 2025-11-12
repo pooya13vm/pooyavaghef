@@ -43,14 +43,5 @@ const certificateItems: CarouselItem[] = [
 ];
 
 export function CertificatesCarousel() {
-  return (
-    <Carousel
-      items={certificateItems}
-      baseWidth={520}
-      autoplay
-      autoplayDelay={3000}
-      pauseOnHover
-      //   loop
-    />
-  );
+  return <Carousel items={certificateItems} />;
 }
