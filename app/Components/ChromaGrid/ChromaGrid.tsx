@@ -272,6 +272,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
       <div
         className="absolute inset-0 pointer-events-none z-30"
         style={{
+          borderRadius: 32,
           backdropFilter: "grayscale(1) brightness(0.78)",
           WebkitBackdropFilter: "grayscale(1) brightness(0.78)",
           background: "rgba(0,0,0,0.001)",

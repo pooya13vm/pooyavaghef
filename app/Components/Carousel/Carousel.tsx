@@ -202,22 +202,6 @@ export default function Carousel({
               }}
               transition={effectiveTransition}
             >
-              {/* آیکون بالا */}
-              {/* {item.icon && (
-                <div
-                  className="
-                    absolute left-4 top-4 z-10 flex h-7 w-7 items-center justify-center
-    rounded-full
-    bg-black/60
-    dark:bg-white/10
-    ring-1 ring-white/20 dark:ring-black/20
-    supports-[backdrop-filter]:backdrop-blur-md
-                  "
-                >
-                  {item.icon}
-                </div>
-              )} */}
-
               {/* تصویر سرتیفیکیت */}
               <div className="flex h-full w-full items-center justify-center">
                 <img
