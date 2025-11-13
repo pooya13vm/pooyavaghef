@@ -19,7 +19,7 @@ export default function HomePage() {
           relative z-10 flex w-full max-w-5xl flex-col items-center gap-8
           px-6 text-center
           lg:flex-row lg:items-center lg:justify-start lg:gap-10 lg:text-left
-           pointer-events-none mt-40 lg:mt-0
+           pointer-events-none mt-52 lg:mt-0
         "
       >
         {/* اسپیس خالی کنار لنیارد توی دسکتاپ */}
