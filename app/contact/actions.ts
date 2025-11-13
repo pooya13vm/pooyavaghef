@@ -49,9 +49,6 @@ export async function sendContact(
              <p style="white-space:pre-wrap">${escape(message)}</p>`,
       text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
     });
-
-    // کمک برای دیباگ: آی‌دی ایمیل را لاگ کن (تو لاگ‌های فانکشن Vercel می‌بینی)
-    // @ts-ignore
     console.log("Resend id:", res?.data?.id ?? res);
 
     return { ok: true };
