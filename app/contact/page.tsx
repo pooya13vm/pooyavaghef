@@ -59,9 +59,9 @@ export default function ContactPage() {
       gsap.set(directCardRef.current, { y: 96, opacity: 0, force3D: true }); // از پایین
 
       tl.to(headerRef.current, { y: 0, opacity: 1 })
-        .to(formCardRef.current, { x: 0, opacity: 1 }, "+=0.08")
-        .to(socialCardRef.current, { x: 0, opacity: 1 }, "+=0.08")
-        .to(directCardRef.current, { y: 0, opacity: 1 }, "+=0.08");
+        .to(formCardRef.current, { x: 0, opacity: 1 })
+        .to(socialCardRef.current, { x: 0, opacity: 1 })
+        .to(directCardRef.current, { y: 0, opacity: 1 });
     });
 
     // < lg : هدر + سوشیال + دایرکت (فرم اصلاً انیمیت/نمایش نمی‌شود)
@@ -72,8 +72,8 @@ export default function ContactPage() {
       gsap.set(directCardRef.current, { y: 96, opacity: 0, force3D: true });
 
       tl.to(headerRef.current, { y: 0, opacity: 1 })
-        .to(socialCardRef.current, { x: 0, opacity: 1 }, "+=0.08")
-        .to(directCardRef.current, { y: 0, opacity: 1 }, "+=0.08");
+        .to(socialCardRef.current, { x: 0, opacity: 1 })
+        .to(directCardRef.current, { y: 0, opacity: 1 });
     });
 
     return () => mm.revert();
