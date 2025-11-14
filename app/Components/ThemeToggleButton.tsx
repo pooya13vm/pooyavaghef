@@ -5,13 +5,10 @@ import { ThemeToggler, type ThemeSelection } from "./theme-toggler";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { gsap } from "gsap";
 
-// فقط این تابع مسئول HTML کلاس و data-theme است
 function applyThemeToDocument(theme: ThemeSelection) {
   if (typeof document === "undefined") return;
   const root = document.documentElement;
   root.classList.toggle("dark", theme === "light");
-  // دقت کن: چون body در حالت معمولی دارکه،
-  // وقتی می‌خواهیم لایت بشه، کلاس dark رو روشن می‌کنیم.
   root.dataset.theme = theme;
 }
 
@@ -104,13 +101,14 @@ const AnimatedToggle: React.FC<AnimatedToggleProps> = ({
       type="button"
       onClick={onToggle}
       className="
-        relative inline-flex h-8 w-14 items-center
-        rounded-full border border-white/15
-        bg-white/5 dark:bg-black/40
-        shadow-sm backdrop-blur-sm
-        hover:bg-white/10 dark:hover:bg-black/60
-        transition-colors
-      "
+      hidden md:inline-flex
+      relative h-8 w-14 items-center
+      rounded-full border border-white/15
+      bg-white/5 dark:bg-black/40
+      shadow-sm backdrop-blur-sm
+      hover:bg-white/10 dark:hover:bg-black/60
+      transition-colors
+    "
       aria-label="Toggle theme"
     >
       {/* آیکون‌های ثابت کنار ریل */}

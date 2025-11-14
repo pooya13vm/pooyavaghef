@@ -48,36 +48,96 @@ export default function ContactPage() {
     if (reduce) return;
 
     const mm = gsap.matchMedia();
-    const defaults = { duration: 1, ease: "power3.out" as const };
 
-    // ≥ lg : هدر + فرم + سوشیال + دایرکت
+    // دسکتاپ (≥1024px): هدر + فرم + سوشیال + دایرکت
     mm.add("(min-width: 1024px)", () => {
-      const tl = gsap.timeline({ defaults });
-      gsap.set(headerRef.current, { y: -28, opacity: 0, force3D: true });
-      gsap.set(formCardRef.current, { x: 96, opacity: 0, force3D: true }); // از راست
-      gsap.set(socialCardRef.current, { x: -96, opacity: 0, force3D: true }); // از چپ
-      gsap.set(directCardRef.current, { y: 96, opacity: 0, force3D: true }); // از پایین
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-      tl.to(headerRef.current, { y: 0, opacity: 1 })
-        .to(formCardRef.current, { x: 0, opacity: 1 })
-        .to(socialCardRef.current, { x: 0, opacity: 1 })
-        .to(directCardRef.current, { y: 0, opacity: 1 });
+      // offsetهای کمتر + autoAlpha برای فید نرم
+      gsap.set(headerRef.current, { y: -24, autoAlpha: 0, force3D: true });
+      gsap.set(formCardRef.current, { x: 80, autoAlpha: 0, force3D: true }); // از راست
+      gsap.set(socialCardRef.current, { x: -80, autoAlpha: 0, force3D: true }); // از چپ
+      gsap.set(directCardRef.current, { y: 80, autoAlpha: 0, force3D: true }); // از پایین
+
+      // شروع‌ها را با زمان مطلق overlap کردیم تا وقفه حس نشود
+      tl.to(headerRef.current, { y: 0, autoAlpha: 1, duration: 0.9 }, 0.3)
+        .to(formCardRef.current, { x: 0, autoAlpha: 1, duration: 0.9 }, 0.08)
+        .to(socialCardRef.current, { x: 0, autoAlpha: 1, duration: 0.9 }, 0.12)
+        .to(directCardRef.current, { y: 0, autoAlpha: 1, duration: 0.9 }, 0.19)
+        .add(() => {
+          gsap.set(
+            [
+              headerRef.current,
+              formCardRef.current,
+              socialCardRef.current,
+              directCardRef.current,
+            ],
+            { clearProps: "will-change" }
+          );
+        });
+
+      return () => tl.kill();
     });
 
-    // < lg : هدر + سوشیال + دایرکت (فرم اصلاً انیمیت/نمایش نمی‌شود)
+    // موبایل (<1024px): هدر + سوشیال + دایرکت (فرم نمایش/انیمیت نمی‌شود)
     mm.add("(max-width: 1023px)", () => {
-      const tl = gsap.timeline({ defaults });
-      gsap.set(headerRef.current, { y: -28, opacity: 0, force3D: true });
-      gsap.set(socialCardRef.current, { x: -96, opacity: 0, force3D: true });
-      gsap.set(directCardRef.current, { y: 96, opacity: 0, force3D: true });
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-      tl.to(headerRef.current, { y: 0, opacity: 1 })
-        .to(socialCardRef.current, { x: 0, opacity: 1 })
-        .to(directCardRef.current, { y: 0, opacity: 1 });
+      gsap.set(headerRef.current, { y: -20, autoAlpha: 0, force3D: true });
+      gsap.set(socialCardRef.current, { x: -64, autoAlpha: 0, force3D: true });
+      gsap.set(directCardRef.current, { y: 64, autoAlpha: 0, force3D: true });
+
+      tl.to(headerRef.current, { y: 0, autoAlpha: 1, duration: 0.65 }, 0.0)
+        .to(socialCardRef.current, { x: 0, autoAlpha: 1, duration: 0.55 }, 0.06)
+        .to(
+          directCardRef.current,
+          { y: 0, autoAlpha: 1, duration: 0.55 },
+          0.12
+        );
+
+      return () => tl.kill();
     });
 
     return () => mm.revert();
   }, []);
+
+  // useLayoutEffect(() => {
+  //   const reduce =
+  //     typeof window !== "undefined" &&
+  //     window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  //   if (reduce) return;
+
+  //   const mm = gsap.matchMedia();
+  //   const defaults = { duration: 1, ease: "power3.out" as const };
+
+  //   // ≥ lg : هدر + فرم + سوشیال + دایرکت
+  //   mm.add("(min-width: 1024px)", () => {
+  //     const tl = gsap.timeline({ defaults });
+  //     gsap.set(headerRef.current, { y: -28, opacity: 0, force3D: true });
+  //     gsap.set(formCardRef.current, { x: 96, opacity: 0, force3D: true }); // از راست
+  //     gsap.set(socialCardRef.current, { x: -96, opacity: 0, force3D: true }); // از چپ
+  //     gsap.set(directCardRef.current, { y: 96, opacity: 0, force3D: true }); // از پایین
+
+  //     tl.to(headerRef.current, { y: 0, opacity: 1 })
+  //       .to(formCardRef.current, { x: 0, opacity: 1 })
+  //       .to(socialCardRef.current, { x: 0, opacity: 1 })
+  //       .to(directCardRef.current, { y: 0, opacity: 1 });
+  //   });
+
+  //   // < lg : هدر + سوشیال + دایرکت (فرم اصلاً انیمیت/نمایش نمی‌شود)
+  //   mm.add("(max-width: 1023px)", () => {
+  //     const tl = gsap.timeline({ defaults });
+  //     gsap.set(headerRef.current, { y: -28, opacity: 0, force3D: true });
+  //     gsap.set(socialCardRef.current, { x: -96, opacity: 0, force3D: true });
+  //     gsap.set(directCardRef.current, { y: 96, opacity: 0, force3D: true });
+
+  //     tl.to(headerRef.current, { y: 0, opacity: 1 })
+  //       .to(socialCardRef.current, { x: 0, opacity: 1 })
+  //       .to(directCardRef.current, { y: 0, opacity: 1 });
+  //   });
+
+  //   return () => mm.revert();
+  // }, []);
 
   const email = "vaghef.pooya@gmail.com";
   const whatsappNumber = "+905368146944";

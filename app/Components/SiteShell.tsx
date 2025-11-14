@@ -102,7 +102,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <nav
           className="flex gap-6 justify-center  bg-black/30 dark:bg-white/60
           border border-white/10 dark:border-black/10
-          backdrop-blur-md p-2 rounded-4xl px-18 z-50"
+          backdrop-blur-md p-2 rounded-4xl md:px-18 z-50 px-6"
         >
           {navItems.map((item, idx) => (
             <Link
@@ -127,7 +127,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           ))}
         </nav>
 
-        <div ref={themeRef} className="flex-1 flex justify-end">
+        <div ref={themeRef} className="flex-1 flex justify-end ml-4">
           <ThemeToggleButton />
         </div>
       </header>
