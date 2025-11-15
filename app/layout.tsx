@@ -1,11 +1,11 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import { SiteShell } from "./Components/SiteShell";
 
-// app/layout.tsx
-
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pooyavaghef.com";
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pooyavaghef.com"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Pooya Vaghef — Developer",
     template: "%s — Pooya Vaghef",
