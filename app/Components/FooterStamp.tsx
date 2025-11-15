@@ -30,7 +30,7 @@ export function FooterStamp({ size = 120 }: FooterStampProps) {
     <div
       className="
         relative flex items-center justify-center
-        text-neutral-800 dark:text-neutral-200
+        text-neutral-600 dark:text-neutral-400
       "
       style={{ width: size, height: size }}
     >
