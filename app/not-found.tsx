@@ -1,5 +1,6 @@
 // app/not-found.tsx
 import Link from "next/link";
+import { Suspense } from "react";
 import AnimatedNotFound from "./Components/NotFound/AnimatedNotFound";
 
 export default function NotFound() {
@@ -41,8 +42,10 @@ export default function NotFound() {
           </div>
         </div>
 
-        {/* ناحیهٔ انیمیشن GSAP */}
-        <AnimatedNotFound />
+        {/* ناحیهٔ انیمیشن GSAP (کلاینت) */}
+        <Suspense fallback={null}>
+          <AnimatedNotFound />
+        </Suspense>
       </div>
     </section>
   );

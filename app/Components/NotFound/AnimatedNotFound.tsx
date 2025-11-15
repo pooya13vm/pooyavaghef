@@ -1,13 +1,15 @@
+// app/Components/NotFound/AnimatedNotFound.tsx
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
+import type { CSSProperties } from "react";
 import { gsap } from "gsap";
 
 /**
  * انیمیشن سبک و روان برای 404:
  * - عدد 404 با افکت پارالاکس آرام
  * - هالهٔ نور با تعقیب ماوس (quickSetter)
- * - پالس حلقه‌ای دور دکمه‌ها، بدون فشار به GPU
+ * - پالس حلقه‌ای دور نور (بدون فشار سنگین به GPU)
  */
 export default function AnimatedNotFound() {
   const root = useRef<HTMLDivElement | null>(null);
@@ -17,14 +19,15 @@ export default function AnimatedNotFound() {
   useLayoutEffect(() => {
     if (!root.current) return;
 
-    // انیمیشن ورود
     const ctx = gsap.context(() => {
       gsap.set(digits.current, {
         y: 30,
         autoAlpha: 0,
         rotateX: -15,
         transformPerspective: 800,
+        force3D: true,
       });
+
       gsap.to(digits.current, {
         y: 0,
         autoAlpha: 1,
@@ -33,7 +36,7 @@ export default function AnimatedNotFound() {
         ease: "power3.out",
       });
 
-      // حلقهٔ نرم روی سایه/نور
+      // پالس نرم روی لایهٔ نور
       gsap.fromTo(
         light.current,
         { opacity: 0.35, scale: 0.9 },
@@ -44,6 +47,7 @@ export default function AnimatedNotFound() {
           ease: "sine.inOut",
           repeat: -1,
           yoyo: true,
+          force3D: true,
         }
       );
     }, root);
@@ -54,7 +58,7 @@ export default function AnimatedNotFound() {
   useLayoutEffect(() => {
     if (!root.current) return;
 
-    // تعقیب ماوس با quickSetter (بدون ساخت tween جدید)
+    // تعقیب ماوس با quickSetter (بدون ساخت tween جدید در هر move)
     const setX = gsap.quickSetter(root.current, "--x", "px");
     const setY = gsap.quickSetter(root.current, "--y", "px");
 
@@ -76,7 +80,7 @@ export default function AnimatedNotFound() {
         {
           "--x": "50%",
           "--y": "50%",
-        } as React.CSSProperties
+        } as CSSProperties
       }
     >
       {/* نور پویا */}
@@ -84,11 +88,14 @@ export default function AnimatedNotFound() {
         ref={light}
         aria-hidden="true"
         className="absolute inset-0 rounded-[32px] -z-10"
-        style={{
-          background:
-            "radial-gradient(400px 300px at var(--x) var(--y), rgba(56,189,248,0.22), transparent 70%)",
-          filter: "blur(12px)",
-        }}
+        style={
+          {
+            background:
+              "radial-gradient(400px 300px at var(--x) var(--y), rgba(56,189,248,0.22), transparent 70%)",
+            filter: "blur(12px)",
+            willChange: "transform, opacity",
+          } as CSSProperties
+        }
       />
 
       {/* ارقام 404 با لایه‌های ظریف */}
@@ -101,14 +108,16 @@ export default function AnimatedNotFound() {
           <div
             aria-hidden="true"
             className="absolute inset-0 blur-2xl"
-            style={{
-              background:
-                "radial-gradient(circle at 40% 40%, rgba(99,102,241,0.4), transparent 50%), radial-gradient(circle at 60% 60%, rgba(56,189,248,0.35), transparent 55%)",
-              maskImage:
-                "radial-gradient(80% 80% at 50% 50%, black 40%, transparent 100%)",
-              WebkitMaskImage:
-                "radial-gradient(80% 80% at 50% 50%, black 40%, transparent 100%)",
-            }}
+            style={
+              {
+                background:
+                  "radial-gradient(circle at 40% 40%, rgba(99,102,241,0.4), transparent 50%), radial-gradient(circle at 60% 60%, rgba(56,189,248,0.35), transparent 55%)",
+                maskImage:
+                  "radial-gradient(80% 80% at 50% 50%, black 40%, transparent 100%)",
+                WebkitMaskImage:
+                  "radial-gradient(80% 80% at 50% 50%, black 40%, transparent 100%)",
+              } as CSSProperties
+            }
           />
 
           <h2
@@ -116,6 +125,7 @@ export default function AnimatedNotFound() {
             style={{
               textShadow:
                 "0 10px 30px rgba(0,0,0,0.25), 0 2px 0 rgba(255,255,255,0.06)",
+              willChange: "transform, opacity",
             }}
           >
             404
