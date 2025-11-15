@@ -2,15 +2,13 @@
 
 import { useLayoutEffect, useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
-import Lanyard from "./Components/Lanyard/Lanyard"; // ✅ استاتیک و مطمئن
+import Lanyard from "./Components/Lanyard/Lanyard";
 import { HeroTextBlock } from "./Components/HeroTextBlock";
 import { StartProjectButton } from "./Components/StartProjectButton";
 
 export default function HomePage() {
   const heroRef = useRef<HTMLDivElement | null>(null);
   const ctaRef = useRef<HTMLDivElement | null>(null);
-
-  // فقط برای جلوگیری از SSR mismatch و تضمین اندازه‌ی درست کانتینر
   const [mounted, setMounted] = useState(false);
   const [playText, setPlayText] = useState(false);
 
@@ -73,18 +71,12 @@ export default function HomePage() {
         -mt-6 md:-mt-16
       "
     >
-      {/* لایهٔ پس‌زمینه برای لنیارد */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
         {mounted && (
-          <Lanyard
-            key="lanyard" /* ✅ ریمونت امن بعد از هیدریشن */
-            position={[0, 0, 20]}
-            gravity={[0, -22, 0]}
-          />
+          <Lanyard key="lanyard" position={[0, 0, 20]} gravity={[0, -22, 0]} />
         )}
       </div>
 
-      {/* محتوای رو */}
       <div
         className="
           relative z-10 flex w-full max-w-5xl flex-col items-center gap-8
@@ -92,12 +84,10 @@ export default function HomePage() {
           lg:gap-10 lg:text-left pointer-events-none mt-52 lg:mt-0
         "
       >
-        {/* فضای خالی کنار لنیارد در دسکتاپ */}
         <div className="hidden lg:block w-[420px]" aria-hidden="true" />
 
         <div className="flex flex-col items-center lg:items-start gap-4">
           <div ref={heroRef} className="opacity-0">
-            {/* اگه HeroTextBlock از prop استفاده می‌کنه نگهش دار */}
             <HeroTextBlock playText={playText} />
           </div>
 

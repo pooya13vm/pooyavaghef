@@ -1,11 +1,14 @@
 // app/layout.tsx
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { SiteShell } from "./Components/SiteShell";
 import GA from "./GA";
 import Script from "next/script";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pooyavaghef.com";
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const isProd = process.env.NODE_ENV === "production";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -23,15 +26,15 @@ export const metadata: Metadata = {
     "Web Developer",
     "Mobile Apps",
   ],
-  alternates: { canonical: "/" },
+  // ⛔️ canonical را از layout حذف کردیم تا هر صفحه canonical خودش را بده
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    url: "https://pooyavaghef.com",
+    url: siteUrl,
     title: "Pooya Vaghef — Developer",
     description:
       "Performance-driven apps & sites with Next.js, React Native, Shopify & WordPress.",
-    images: ["/og.jpg"], // اگر داشتی
+    images: ["/og.jpg"],
   },
   twitter: {
     card: "summary_large_image",
@@ -42,17 +45,23 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#000000",
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
   return (
     <html lang="en">
       <head>
-        {/* gtag.js */}
-        {GA_ID && (
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        {isProd && GA_ID && (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
@@ -63,8 +72,7 @@ export default function RootLayout({
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                // چون SPA هستیم، خودمان page_view می‌فرستیم:
-                gtag('config', '${GA_ID}', { send_page_view: false });
+                gtag('config', '${GA_ID}');
               `}
             </Script>
           </>
@@ -78,7 +86,7 @@ export default function RootLayout({
           transition-colors duration-500
         "
       >
-        {GA_ID && <GA />}
+        {isProd && GA_ID && <GA />}
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

@@ -179,44 +179,6 @@ export default function MobileWorkShowcase({
     qProg.current?.(target);
   };
 
-  // اتوپلی «پله‌ای» پایدار (۰→۱→۲→…)
-  //   useEffect(() => {
-  //     if (!mounted || !autoPlay) return;
-  //     let killed = false;
-  //     let timer: gsap.core.Tween | gsap.core.DelayedCall | null = null;
-
-  //     const step = () => {
-  //       if (killed) return;
-  //       const next = Math.floor(prog.current.value) + 1;
-  //       qProg.current?.(next);
-  //       timer = gsap.delayedCall(autoDelay, step);
-  //     };
-
-  //     timer = gsap.delayedCall(autoDelay, step);
-
-  //     const pause = () => {
-  //       timer?.kill();
-  //       timer = null;
-  //     };
-  //     const resume = () => {
-  //       if (killed) return;
-  //       timer?.kill();
-  //       timer = gsap.delayedCall(autoDelay, step);
-  //     };
-
-  //     const el = rootRef.current;
-  //     el?.addEventListener("pointerdown", pause);
-  //     el?.addEventListener("pointerup", resume);
-  //     el?.addEventListener("pointercancel", resume);
-
-  //     return () => {
-  //       killed = true;
-  //       timer?.kill();
-  //       el?.removeEventListener("pointerdown", pause);
-  //       el?.removeEventListener("pointerup", resume);
-  //       el?.removeEventListener("pointercancel", resume);
-  //     };
-  //   }, [mounted, autoPlay, autoDelay]);
   useEffect(() => {
     if (!mounted || !autoPlay) return;
 
