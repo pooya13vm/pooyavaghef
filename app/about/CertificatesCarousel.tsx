@@ -45,6 +45,6 @@ const certificateItems: CarouselItem[] = [
 
 export function CertificatesCarousel() {
   const isSmall = useMediaQuery("(max-width: 600px)");
-  const baseWidth = isSmall ? 420 : 520;
+  const baseWidth = isSmall ? 380 : 520;
   return <Carousel items={certificateItems} baseWidth={baseWidth} />;
 }
