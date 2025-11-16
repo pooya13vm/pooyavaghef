@@ -148,7 +148,7 @@ export default function Carousel({
     supports-[backdrop-filter]:backdrop-blur-xl
     shadow-[0_24px_60px_rgba(0,0,0,0.45)]
     transform-gpu isolate
-    p-4
+    p-4 
       "
       style={{
         width: baseWidth,
@@ -191,9 +191,9 @@ export default function Carousel({
                 relative flex shrink-0 flex-col overflow-hidden
                 cursor-grab active:cursor-grabbing
                 rounded-[24px]
-                bg-[#050505] dark:bg-white
                 shadow-[0_18px_45px_rgba(0,0,0,0.75)]
                 dark:shadow-[0_22px_55px_rgba(15,23,42,0.25)]
+                bg-transparent
               "
               style={{
                 width: itemWidth,

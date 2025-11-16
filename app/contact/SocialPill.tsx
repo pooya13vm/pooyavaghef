@@ -61,11 +61,7 @@ export const SocialPill: React.FC<SocialPillProps> = ({ link }) => {
         rounded-full overflow-hidden cursor-pointer
         transition-transform duration-300 hover:-translate-y-1 active:scale-95
         select-none
-
-        /* سایز ریسپانسیو */
         h-12 w-12 md:h-16 md:w-16
-
-        /* تم: پیش‌فرض تیره، با dark: برای حالت روشن پروژه‌ی تو */
         [--pill-bg:rgba(5,8,20,0.80)] dark:[--pill-bg:rgba(255,255,255,0.82)]
         [--pill-border:rgba(255,255,255,0.10)] dark:[--pill-border:rgba(0,0,0,0.10)]
         [--ring:rgba(255,255,255,0.10)] dark:[--ring:rgba(0,0,0,0.12)]

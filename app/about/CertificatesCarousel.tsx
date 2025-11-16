@@ -2,6 +2,7 @@
 
 import { FiAward } from "react-icons/fi";
 import Carousel, { CarouselItem } from "../Components/Carousel/Carousel";
+import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 
 const certificateItems: CarouselItem[] = [
   {
@@ -43,5 +44,7 @@ const certificateItems: CarouselItem[] = [
 ];
 
 export function CertificatesCarousel() {
-  return <Carousel items={certificateItems} />;
+  const isSmall = useMediaQuery("(max-width: 600px)");
+  const baseWidth = isSmall ? 420 : 520;
+  return <Carousel items={certificateItems} baseWidth={baseWidth} />;
 }

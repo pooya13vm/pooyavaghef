@@ -126,7 +126,7 @@ export default function ContactPageClient() {
           <div
             ref={socialCardRef}
             className="
-              relative flex-1 overflow-hidden rounded-3xl will-change-transform
+              relative overflow-hidden rounded-3xl will-change-transform
               border border-white/10 dark:border-black/10
               bg-black/60 dark:bg-white/70 backdrop-blur-xl
               px-6 py-6
@@ -149,7 +149,7 @@ export default function ContactPageClient() {
                   Find me on your favorite platforms.
                 </p>
               </div>
-              <div className="relative z-10 mt-1 flex flex-wrap gap-3">
+              <div className="relative z-10 mt-1 flex flex-wrap gap-1 lg:gap-3">
                 {socialLinks.map((link) => (
                   <SocialPill key={link.name} link={link} />
                 ))}

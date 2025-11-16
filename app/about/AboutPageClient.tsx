@@ -65,7 +65,6 @@ export default function AboutPageClient() {
         </p>
       </div>
 
-      {/* ستون کاروسل */}
       <div
         ref={certsWrap}
         className="flex flex-1 justify-center lg:justify-end"
