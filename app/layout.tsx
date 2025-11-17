@@ -200,7 +200,35 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const isProd = process.env.NODE_ENV === "production";
 
 export const metadata: Metadata = {
-  /* همونی که داری */
+  metadataBase: new URL(siteUrl),
+  title: { default: "Pooya Vaghef — Developer", template: "%s — Pooya Vaghef" },
+  description:
+    "Pooya Vaghef — Full-Stack Web & Mobile Developer. Portfolio of performance-driven apps and sites built with Next.js, React Native, Shopify & WordPress.",
+  keywords: [
+    "Full-Stack Developer",
+    "Next.js",
+    "React Native",
+    "Shopify",
+    "WordPress",
+    "Web Developer",
+    "Mobile Apps",
+  ],
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    title: "Pooya Vaghef — Developer",
+    description:
+      "Performance-driven apps & sites with Next.js, React Native, Shopify & WordPress.",
+    images: ["/og.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pooya Vaghef — Full-Stack Web & Mobile Developer",
+    description:
+      "Selected work across Next.js, React Native, Shopify & WordPress.",
+    images: ["/og.jpg"],
+  },
 };
 export const viewport: Viewport = {
   width: "device-width",
@@ -237,10 +265,8 @@ export default function RootLayout({
         )}
       </head>
       <body className="min-h-screen bg-black text-white dark:bg-white dark:text-black transition-colors duration-500">
-        {/* فقط GA داخل Suspense بمونه */}
         <Suspense fallback={null}>{isProd && GA_ID ? <GA /> : null}</Suspense>
 
-        {/* ⛔️ دیگه SiteShell را داخل Suspense نذار */}
         <SiteShell>{children}</SiteShell>
       </body>
     </html>
