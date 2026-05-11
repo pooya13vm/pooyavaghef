@@ -126,7 +126,7 @@ export default function ContactPageClient() {
           <div
             ref={socialCardRef}
             className="
-              relative overflow-hidden rounded-3xl will-change-transform
+              relative z-50 overflow-hidden rounded-3xl will-change-transform
               border border-white/10 dark:border-black/10
               bg-black/60 dark:bg-white/70 backdrop-blur-xl
               px-6 py-6
@@ -161,7 +161,7 @@ export default function ContactPageClient() {
           <div
             ref={directCardRef}
             className="
-              relative flex-1 overflow-hidden rounded-3xl will-change-transform
+              relative z-50 flex-1 overflow-hidden rounded-3xl will-change-transform
               border border-white/10 dark:border-black/10
               bg-black/60 dark:bg-white/70 backdrop-blur-xl
               px-6 py-6
@@ -233,7 +233,7 @@ export default function ContactPageClient() {
           ref={formCardRef}
           className="
             hidden lg:block
-            relative h-full overflow-hidden rounded-3xl will-change-transform
+            relative z-50 h-full overflow-hidden rounded-3xl will-change-transform
             border border-white/10 dark:border-black/10
             bg-black/60 dark:bg-white/70 backdrop-blur-xl
             px-6 py-6

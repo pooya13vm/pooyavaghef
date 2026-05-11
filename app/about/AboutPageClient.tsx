@@ -157,7 +157,7 @@ export default function AboutPageClient() {
         <div
           ref={certsWrap}
           className="
-            w-full max-w-[520px]
+            relative z-50 w-full max-w-[520px]
             lg:self-center
           "
         >

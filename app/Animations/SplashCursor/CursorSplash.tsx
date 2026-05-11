@@ -17,7 +17,7 @@ export function CursorSplash() {
   }, []);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-40">
+    <div className="pointer-events-none fixed inset-0 z-20">
       <SplashCursor
         key={`${pathname}-${isSmall ? "small" : "large"}`}
         COLOR_UPDATE_SPEED={1}

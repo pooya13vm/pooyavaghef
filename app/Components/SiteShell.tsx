@@ -135,7 +135,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       {/* محتوای وسط صفحه */}
       <main
         className="
-          z-10 flex flex-1 px-4
+          relative z-30 flex flex-1 px-4
           items-start justify-center
           md:px-8 md:items-center
         "
