@@ -242,7 +242,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -264,7 +264,10 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className="min-h-screen bg-black text-white dark:bg-white dark:text-black transition-colors duration-500">
+      <body
+        suppressHydrationWarning
+        className="min-h-screen bg-black text-white dark:bg-white dark:text-black transition-colors duration-500"
+      >
         <Suspense fallback={null}>{isProd && GA_ID ? <GA /> : null}</Suspense>
 
         <SiteShell>{children}</SiteShell>

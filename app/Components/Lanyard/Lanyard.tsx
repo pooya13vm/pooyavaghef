@@ -38,11 +38,36 @@ export default function Lanyard({
   fov = 15,
   transparent = true,
 }: LanyardProps) {
+  const [isSmall, setIsSmall] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px), (pointer: coarse)");
+    const applySize = () => setIsSmall(mq.matches);
+    const applyVisibility = () => setIsVisible(!document.hidden);
+
+    applySize();
+    applyVisibility();
+    mq.addEventListener("change", applySize);
+    document.addEventListener("visibilitychange", applyVisibility);
+
+    return () => {
+      mq.removeEventListener("change", applySize);
+      document.removeEventListener("visibilitychange", applyVisibility);
+    };
+  }, []);
+
   return (
     <div className="relative z-0 w-full h-screen flex justify-center items-center transform scale-100 origin-center pointer-events-auto">
       <Canvas
         camera={{ position, fov }}
-        gl={{ alpha: transparent }}
+        dpr={isSmall ? [0.75, 1] : [1, 1.5]}
+        frameloop={isVisible ? "always" : "demand"}
+        gl={{
+          alpha: transparent,
+          antialias: false,
+          powerPreference: isSmall ? "low-power" : "high-performance",
+        }}
         onCreated={({ gl }) =>
           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
         }

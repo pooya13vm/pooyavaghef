@@ -34,6 +34,8 @@ export default function MobileWorkShowcase({
   };
 
   const [mounted, setMounted] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
   useEffect(() => setMounted(true), []);
 
   const data = useMemo(() => items ?? [], [items]);
@@ -115,6 +117,11 @@ export default function MobileWorkShowcase({
     const s = slide.current;
     // نرمال‌سازی برای جلوگیری از خطای تجمیع ممیز شناور
     const pNorm = ((prog.current.value % N) + N) % N;
+    const nextActive = Math.round(pNorm) % N;
+    if (nextActive !== activeIndexRef.current) {
+      activeIndexRef.current = nextActive;
+      setActiveIndex(nextActive);
+    }
 
     for (let i = 0; i < N; i++) {
       const el = cardsRef.current[i];
@@ -139,7 +146,7 @@ export default function MobileWorkShowcase({
         x
       )}px) rotateZ(${rot}deg) scale(${scale}) translateZ(0)`;
       el.style.opacity = String(opacity);
-      (el.style as any).filter = blur ? `blur(${blur}px)` : "none";
+      el.style.filter = blur ? `blur(${blur}px)` : "none";
     }
   };
 
@@ -301,7 +308,7 @@ export default function MobileWorkShowcase({
       {/* دات‌ها */}
       <Dots
         count={total}
-        getIndex={() => ((prog.current.value % total) + total) % total}
+        active={activeIndex}
         onJump={(i) =>
           qProg.current?.(nearestJump(prog.current.value, i, total))
         }
@@ -317,27 +324,20 @@ function wrapDiff(v: number, N: number) {
 }
 function nearestJump(from: number, toIndex: number, N: number) {
   const cur = ((from % N) + N) % N;
-  let forward = toIndex - cur;
-  let backward = forward - N;
+  const forward = toIndex - cur;
+  const backward = forward - N;
   if (Math.abs(backward) < Math.abs(forward)) return from + backward;
   return from + forward;
 }
 function Dots({
   count,
-  getIndex,
+  active,
   onJump,
 }: {
   count: number;
-  getIndex: () => number;
+  active: number;
   onJump: (i: number) => void;
 }) {
-  const [, force] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => force((n) => n + 1), 200);
-    return () => clearInterval(id);
-  }, []);
-  const active = Math.round(getIndex()) % count;
-
   return (
     <div className="absolute bottom-2 left-0 right-0 flex items-center justify-center gap-2">
       {new Array(count).fill(0).map((_, i) => (

@@ -29,6 +29,11 @@ export interface ChromaGridProps {
 }
 
 type SetterFn = (v: number | string) => void;
+type QuickToFn = ReturnType<typeof gsap.quickTo>;
+type ChromaRoot = HTMLDivElement & {
+  __quickToX?: QuickToFn;
+  __quickToY?: QuickToFn;
+};
 
 const isSafari = () => {
   if (typeof navigator === "undefined") return false;
@@ -117,27 +122,23 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
     const quickToX = gsap.quickTo(pos.current, "x", {
       duration: damping,
       ease,
+      onUpdate: () => setX.current?.(pos.current.x),
     });
     const quickToY = gsap.quickTo(pos.current, "y", {
       duration: damping,
       ease,
+      onUpdate: () => setY.current?.(pos.current.y),
     });
 
-    // یک رندر حلقه‌ای برای ست‌کردن متغیرها
-    const tick = () => {
-      setX.current?.(pos.current.x);
-      setY.current?.(pos.current.y);
-    };
-    gsap.ticker.add(tick);
-
     // ذخیره در ref برای دسترسی در handlerها
-    (rootRef.current as any).__quickToX = quickToX;
-    (rootRef.current as any).__quickToY = quickToY;
+    const root = rootRef.current as ChromaRoot;
+    root.__quickToX = quickToX;
+    root.__quickToY = quickToY;
 
     return () => {
-      gsap.ticker.remove(tick);
+      quickToX.tween.kill();
+      quickToY.tween.kill();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted, damping, ease]);
 
   const handleMove = (e: React.PointerEvent) => {
@@ -147,8 +148,9 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
     const y = e.clientY - r.top;
 
     // فقط مقصد را به quickTo بده؛ tween داخلی مدیریت می‌شود
-    (rootRef.current as any).__quickToX?.(x);
-    (rootRef.current as any).__quickToY?.(y);
+    const root = rootRef.current as ChromaRoot;
+    root.__quickToX?.(x);
+    root.__quickToY?.(y);
 
     gsap.to(fadeRef.current, { opacity: 0, duration: 0.25, overwrite: true });
   };

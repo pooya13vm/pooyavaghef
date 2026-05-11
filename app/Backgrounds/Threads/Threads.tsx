@@ -10,6 +10,8 @@ interface ThreadsProps {
   amplitude?: number;
   distance?: number;
   enableMouseInteraction?: boolean;
+  dpr?: number;
+  maxFps?: number;
 }
 
 const vertexShader = `
@@ -134,6 +136,8 @@ const Threads: React.FC<ThreadsProps> = ({
   amplitude = 1,
   distance = 0,
   enableMouseInteraction = false,
+  dpr = 1,
+  maxFps = 60,
   ...rest
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -143,7 +147,7 @@ const Threads: React.FC<ThreadsProps> = ({
     if (!containerRef.current) return;
     const container = containerRef.current;
 
-    const renderer = new Renderer({ alpha: true });
+    const renderer = new Renderer({ alpha: true, dpr });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
@@ -182,7 +186,7 @@ const Threads: React.FC<ThreadsProps> = ({
     window.addEventListener("resize", resize);
     resize();
 
-    let currentMouse = [0.5, 0.5];
+    const currentMouse = [0.5, 0.5];
     let targetMouse = [0.5, 0.5];
 
     function handleMouseMove(e: MouseEvent) {
@@ -199,7 +203,14 @@ const Threads: React.FC<ThreadsProps> = ({
       container.addEventListener("mouseleave", handleMouseLeave);
     }
 
+    let lastRenderTime = 0;
+    const minFrameTime = 1000 / Math.max(1, maxFps);
+
     function update(t: number) {
+      animationFrameId.current = requestAnimationFrame(update);
+      if (document.hidden || t - lastRenderTime < minFrameTime) return;
+      lastRenderTime = t;
+
       if (enableMouseInteraction) {
         const smoothing = 0.05;
         currentMouse[0] += smoothing * (targetMouse[0] - currentMouse[0]);
@@ -213,7 +224,6 @@ const Threads: React.FC<ThreadsProps> = ({
       program.uniforms.iTime.value = t * 0.001;
 
       renderer.render({ scene: mesh });
-      animationFrameId.current = requestAnimationFrame(update);
     }
     animationFrameId.current = requestAnimationFrame(update);
 
@@ -229,7 +239,7 @@ const Threads: React.FC<ThreadsProps> = ({
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, []);
+  }, [color, amplitude, distance, enableMouseInteraction, dpr, maxFps]);
   //  }, [color, amplitude, distance, enableMouseInteraction]);
 
   return (
